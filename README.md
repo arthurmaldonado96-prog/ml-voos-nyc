@@ -1,4 +1,4 @@
-## 📌 Objetivo
+## Objetivo
 
 Desenvolver um modelo de Machine Learning capaz de prever a probabilidade de atraso em voos, com base em variáveis operacionais como atraso na decolagem, características do voo e período do dia.
 
@@ -57,7 +57,7 @@ A partir da matriz de confusão.
 
 
 
-## 👨‍💻 Autor
+## Autor
 
 Arthur M
 
