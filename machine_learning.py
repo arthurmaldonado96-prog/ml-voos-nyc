@@ -17,7 +17,7 @@ from sklearn.metrics import classification_report, confusion_matrix  # avaliaç�
 # 1. CARREGAMENTO DOS DADOS
 
 # Lê o dataset já tratado pelo ETL
-df = pd.read_csv('flights_tratado.csv')
+df = pd.read_csv('nyc_flights.csv')
 
 # Exibe as primeiras linhas para validação
 print(df.head())
