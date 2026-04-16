@@ -1,38 +1,23 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
+import pandas as pd # manipulação de dados em formato de dataframe
+import numpy as np # operações matemáticas
+import seaborn as sns # visualização gráfica
+import matplotlib.pyplot as plt # visualização gráfica
+from scipy.interpolate import UnivariateSpline # curva sigmoide suavizada
+import statsmodels.api as sm # estimação de modelos
+from statstests.process import stepwise # procedimento Stepwise
+from scipy import stats # estatística chi2
+import plotly.graph_objects as go # gráficos 3D
+from statsmodels.iolib.summary2 import summary_col
 
-This is a temporary script file.
-"""
-
-# IMPORTAÇÃO DE BIBLIOTECAS
-
-import pandas as pd  # manipulação de dados
-from sklearn.model_selection import train_test_split  # divisão treino/teste
-from sklearn.linear_model import LogisticRegression  # modelo 1
-from sklearn.ensemble import RandomForestClassifier  # modelo 2
-from sklearn.metrics import classification_report, confusion_matrix  # avaliação
-
-
-# 1. CARREGAMENTO DOS DADOS
-
-# Lê o dataset já tratado pelo ETL
-df = pd.read_csv('nyc_flights.csv')
-
-# Exibe as primeiras linhas para validação
-print(df.head())
-
-
-# 2. SELEÇÃO DE VARIÁVEIS
+df = pd.read_csv('flights_tratado.csv', delimiter=',')
+df = df.iloc[:1000]
+df.info()
 
 # Selecionamos apenas colunas relevantes para o modelo
 # (variáveis preditoras + variável dependente)
 df = df[[
-    'dep_delay',      # atraso na saída
     'distance',       # distância do voo
     'carrier',        # companhia aérea
-    'origin',         # aeroporto de origem
-    'dest',           # aeroporto de destino
     'periodo_dia',    # período do dia
     'is_delay'        # variável dependente (0 ou 1)
 ]]
@@ -40,65 +25,24 @@ df = df[[
 # Remove linhas com valores nulos para evitar erros no modelo
 df = df.dropna()
 
+# Tabela de frequências absolutas das variáveis qualitativas
+df['carrier'].value_counts().sort_index()
+df['periodo_dia'].value_counts().sort_index()
 
-# 3. TRATAMENTO DE VARIÁVEIS CATEGÓRICAS
+# Dummizando as variáveis qualitativas
+df_dummies = pd.get_dummies(df,
+                            columns = ['carrier',
+                                       'periodo_dia'],
+                            dtype = int,
+                            drop_first = True)
+df_dummies = df_dummies.dropna()
 
-# Processo de dummização de variáveis categóricas
-df = pd.get_dummies(
-    df,
-    columns=['carrier', 'origin', 'dest', 'periodo_dia'],
-    drop_first=True  # evita multicolinearidade
-)
+# Definição da fórmula utilizada no modelo, devido ao número de elevado de dummies
 
+lista_colunas = list(df_dummies.drop(columns=['is_delay']).columns)
+formula_dummies_modelo = ' + '.join(lista_colunas)
+formula_dummies_modelo = 'is_delay ~ ' + formula_dummies_modelo
+print(formula_dummies_modelo)
 
-# 4. SEPARAÇÃO ENTRE VARIÁVEIS 
-
-# X = variáveis preditoras (entrada do modelo)
-X = df.drop('is_delay', axis=1)
-
-# y = variável que queremos prever
-y = df['is_delay']
-
-
-# 5. DIVISÃO TREINO E TESTE
-
-# Divide os dados:
-# - 80% para treino
-# - 20% para teste
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y,
-    test_size=0.2,      # 20% teste
-    random_state=42     # reprodutibilidade
-)
-
-
-# 6. TREINAMENTO DOS MODELOS
-
-# Modelo 1: Regressão Logística 
-log_model = LogisticRegression(max_iter=1000)
-log_model.fit(X_train, y_train)
-
-# Modelo 2: Random Forest 
-rf_model = RandomForestClassifier(
-    n_estimators=100,   # número de árvores
-    random_state=42
-)
-rf_model.fit(X_train, y_train)
-
-
-# 7. AVALIAÇÃO DOS MODELOS
-
-# Fazendo previsões com cada modelo
-y_pred_log = log_model.predict(X_test)
-y_pred_rf = rf_model.predict(X_test)
-
-print("\n=== Logistic Regression ===")
-print(confusion_matrix(y_test, y_pred_log))
-print(classification_report(y_test, y_pred_log))
-
-print("\n=== Random Forest ===")
-print(confusion_matrix(y_test, y_pred_rf))
-print(classification_report(y_test, y_pred_rf))
-
-
-
+modelo_is_delay = sm.Logit.from_formula(formula_dummies_modelo, df_dummies).fit()
+modelo_is_delay.summary()
