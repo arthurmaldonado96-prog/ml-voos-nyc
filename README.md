@@ -13,38 +13,24 @@ O projeto utiliza o dataset **NYC Flights 2013**, contendo informações sobre v
 * Scikit-learn
 
 
-## Pipeline do Projeto
 
-### 1. Preparação dos Dados
+## Preparação dos Dados
 
 * Seleção de variáveis relevantes
 * Remoção de valores nulos
 * Dummização de variáveis categóricas
 
-### 2. Engenharia de Features
+## Engenharia de Features
 
 * Criação da variável dependente `is_delay`
 * Criação da variável preditora `periodo_dia`
 
-### 3. Modelagem
+## Modelagem
 
-Foram utilizados dois modelos:
-
-* Regressão Logística
-* Random Forest
+Foi utilizado o modelo de regressão logística binária
 
 
-## Divisão dos Dados
-
-Os dados foram divididos em:
-
-* 80% para treino
-* 20% para teste
-
-Utilizando `train_test_split` para garantir avaliação em dados não vistos.
-
-
-## Avaliação dos Modelos
+## Avaliação 
 
 As seguintes métricas foram utilizadas:
 
