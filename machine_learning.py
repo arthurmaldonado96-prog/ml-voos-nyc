@@ -10,7 +10,7 @@ import plotly.graph_objects as go # gráficos 3D
 from statsmodels.iolib.summary2 import summary_col
 
 df = pd.read_csv('flights_tratado.csv', delimiter=',')
-df = df.sample(1000, random_state=42) # reduzindo a amostra devido ao tamanho do dataset
+df = df.sample(2000, random_state=42) # reduzindo a amostra devido ao tamanho do dataset
 df.info()
 
 # Selecionamos apenas colunas relevantes para o modelo
