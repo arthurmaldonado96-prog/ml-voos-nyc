@@ -66,7 +66,7 @@ def matriz_confusao(predicts, observado, cutoff):
         else:
             predicao_binaria.append(1)
            
-    cm = confusion_matrix(predicao_binaria, observado)
+    cm = confusion_matrix(observado, predicao_binaria)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot()
     plt.xlabel('True')
