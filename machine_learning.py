@@ -94,3 +94,28 @@ df_dummies['phat'] = step_modelo_is_delay.predict()
 matriz_confusao(observado=df_dummies['is_delay'],
                 predicts=df_dummies['phat'],
                 cutoff=0.50)
+
+# Construção da curva ROC
+
+from sklearn.metrics import roc_curve, auc
+
+# Função 'roc_curve' do pacote 'metrics' do sklearn
+
+fpr, tpr, thresholds =roc_curve(df_dummies['is_delay'],
+                                df_dummies['phat'])
+roc_auc = auc(fpr, tpr)
+
+# Cálculo do coeficiente de GINI
+gini = (roc_auc - 0.5)/(0.5)
+
+# Plotando a curva ROC
+plt.figure(figsize=(15,10))
+plt.plot(fpr, tpr, marker='o', color='darkorchid', markersize=11, linewidth=3)
+plt.plot(fpr, fpr, color='gray', linestyle='dashed')
+plt.title('Área abaixo da curva: %g' % round(roc_auc, 4) +
+          ' | Coeficiente de GINI: %g' % round(gini, 4), fontsize=22)
+plt.xlabel('1 - Especificidade', fontsize=20)
+plt.ylabel('Sensitividade', fontsize=20)
+plt.xticks(np.arange(0, 1.1, 0.2), fontsize=14)
+plt.yticks(np.arange(0, 1.1, 0.2), fontsize=14)
+plt.show()
