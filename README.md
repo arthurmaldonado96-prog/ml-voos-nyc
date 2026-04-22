@@ -32,13 +32,13 @@ Foi utilizado o modelo de regressão logística binária
 
 ## Avaliação 
 
-As seguintes métricas foram utilizadas:
+As seguintes métricas foram utilizadas, a partir da matriz de confusão:
 
 * Sensitividade
 * Especificidade
 * Acurácia
 
-A partir da matriz de confusão.
+
 
 
 
