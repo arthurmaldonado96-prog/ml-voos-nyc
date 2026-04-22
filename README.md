@@ -37,6 +37,7 @@ As seguintes métricas foram utilizadas, a partir da matriz de confusão:
 * Sensitividade
 * Especificidade
 * Acurácia
+* Curva ROC
 
 
 
