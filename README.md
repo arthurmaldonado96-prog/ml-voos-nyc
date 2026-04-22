@@ -39,9 +39,9 @@ As seguintes métricas foram utilizadas, a partir da matriz de confusão:
 * Acurácia
 * Curva ROC
 
+## Insinghts
 
-
-
+A partir da análise de Odds Ratio, nota-se que os atrasos estão fortemente associados à companhia aérea e ao período do dia. Voos noturnos apresentam mais que o dobro de chance de atraso, sugerindo um efeito acumulado operacional. Além disso, há diferenças relevantes entre companhias, com algumas apresentando risco até 5 vezes maior.
 
 ## Autor
 
