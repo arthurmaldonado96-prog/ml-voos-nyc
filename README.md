@@ -34,10 +34,9 @@ Foi utilizado o modelo de regressão logística binária
 
 As seguintes métricas foram utilizadas:
 
-* Accuracy
-* Precision
-* Recall
-* F1-score
+* Sensitividade
+* Especificidade
+* Acurácia
 
 A partir da matriz de confusão.
 
