@@ -1,49 +1,66 @@
-## Objetivo
+ Previsão de Atrasos em Voos com Regressão Logística
+ 
+- Objetivo
 
-Desenvolver um modelo de Machine Learning capaz de prever a probabilidade de atraso em voos, com base em variáveis operacionais como atraso na decolagem, características do voo e período do dia.
+Desenvolver um modelo preditivo para identificar a probabilidade de atraso em voos com base em características operacionais como distância, companhia aérea e período do dia.
 
-## Dataset
+- Metodologia
 
-O projeto utiliza o dataset **NYC Flights 2013**, contendo informações sobre voos domésticos, incluindo horários, atrasos, companhias aéreas e aeroportos.
+O projeto foi estruturado em etapas:
 
-## Tecnologias Utilizadas
+Pré-processamento
+Remoção de valores nulos
+Codificação de variáveis categóricas (dummies)
+Remoção de variáveis constantes
+Divisão dos dados
+Separação treino/teste (70/30)
+Estratificação da variável alvo
+Modelagem
+Modelo 1: Regressão Logística com statsmodels + Stepwise
+Modelo 2: Regressão Logística com scikit-learn (regularização L2)
+Avaliação
+Acurácia
+Curva ROC
+AUC
+Gini
+Matriz de confusão
 
-* Python
-* Pandas
-* Scikit-learn
+- Resultados
+  
+Modelo	Acurácia	ROC AUC	GINI
+Statsmodels (Stepwise)	~0.64	~0.63	~0.26
+Sklearn (Regularizado)	~0.63	~0.64	~0.29
 
+- Principais Insights
+  
+Voos no período noturno apresentam maior probabilidade de atraso
+Existem diferenças relevantes entre companhias aéreas
+A distância possui impacto menor comparado às variáveis categóricas
 
+- Comparação de Modelos
+  
+Statsmodels
+Mais interpretável (odds ratio)
+Melhor para análise de negócio
+Sklearn
+Melhor capacidade preditiva (ROC AUC maior)
+Mais robusto para produção
 
-## Preparação dos Dados
+- Conclusão
 
-* Seleção de variáveis relevantes
-* Remoção de valores nulos
-* Dummização de variáveis categóricas
+O modelo regularizado apresentou melhor desempenho preditivo, enquanto o modelo estatístico permitiu maior interpretabilidade dos fatores de atraso.
 
-## Engenharia de Features
+A combinação dos dois fornece uma abordagem equilibrada entre explicação e previsão.
 
-* Criação da variável dependente `is_delay`
-* Criação da variável preditora `periodo_dia`
+- Tecnologias Utilizadas
+  
+Python
+Pandas
+NumPy
+Matplotlib
+Statsmodels
+Scikit-learn
 
-## Modelagem
+- Próximo Passo
 
-Foi utilizado o modelo de regressão logística binária
-
-
-## Avaliação 
-
-As seguintes métricas foram utilizadas, a partir da matriz de confusão:
-
-* Sensitividade
-* Especificidade
-* Acurácia
-* Curva ROC
-
-## Insinghts
-
-A partir da análise de Odds Ratio, nota-se que os atrasos estão fortemente associados à companhia aérea e ao período do dia. Voos noturnos apresentam mais que o dobro de chance de atraso, sugerindo um efeito acumulado operacional. Além disso, há diferenças relevantes entre companhias, com algumas apresentando risco até 5 vezes maior.
-
-## Autor
-
-Arthur M
-
+Testar modelos mais complexos (Random Forest, XGBoost)
