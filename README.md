@@ -27,9 +27,9 @@ Matriz de confusão
 
 - Resultados
   
-Modelo	Acurácia	ROC AUC	GINI
-Statsmodels (Stepwise)	~0.64	~0.63	~0.26
-Sklearn (Regularizado)	~0.63	~0.64	~0.29
+Modelo	               | Acurácia |	ROC AUC |	GINI
+Statsmodels (Stepwise)	  ~0.64     	~0.63	    ~0.26
+Sklearn (Regularizado)	  ~0.63	     ~0.64	    ~0.29
 
 - Principais Insights
   
