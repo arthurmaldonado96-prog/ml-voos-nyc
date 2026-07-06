@@ -25,6 +25,6 @@ def periodo(h):
 df['periodo_dia'] = df['dep_time'].apply(lambda x: periodo(int(x/100)))
     
 # salvando
-df.to_csv('nyc_flights.csv', index = False)
+df.to_csv('flights_tratado.csv', index = False)
 
 print('ETL OK')
